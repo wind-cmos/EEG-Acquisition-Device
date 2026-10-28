@@ -1,0 +1,831 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 9em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://D:\Users\Public\Documents\Altium\AD25\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">2025/8/21</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">23:05:07</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc" class="file"><acronym title="E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc">E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">153</td></tr>
+</table>
+</td>
+</table><a name="IDNCRL4B1WUEWNK0Q2DPSPIWYDZLYCYV3R2XEUNQKOY3GKRAIGVCJL"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXNA0AV0LR1SYDTJL0MT1FMWH4DSL33EDEZPZ2YF1RSUJVLROHZRI">Clearance Constraint (Gap=0.203mm) (All),(All)</a></td>
+<td class="column2">52</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDQ1HPTHLJOERFLIQ22J5UHZAHVEFYWKHMRXZ1PVIVYEQMAE3P4AAG">Clearance Constraint (Gap=0.203mm) (InPolygon),(All)</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNJYMFQWOW1N5G0M2EATHNRC3OB2KDRL2KYENMMJPUWX5EVJUZE2L">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">24</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDADXJ5SLD1PF5D0RDF5K2KN2ENJ0WBO3ZORB4LOLX2GKYK3XHMHOB">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">1</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDYKODSQVYIN3GPXPYFJJ30OFZ2LZWTN3ZYW0GYCGF1FIRZQHEZ5MF">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDK3YEURBDAFEBL5BY54ZUHZRLIFNAC5L54X05V1KFEWAREQFHLJI">Width Constraint (Min=0.127mm) (Max=1.524mm) (Preferred=0.356mm) (InNetClass('POWER'))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDWD3VYMOIVVHYGPF5O5XWZNF1LNIP5Y3EPRZBGKC3CEAALAW13QTB">Width Constraint (Min=0.102mm) (Max=1.016mm) (Preferred=0.203mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDPJIBNVVYIP2RJH13U0ZHXCRP4ON4PFINCP5FV0FUBXNNW5H1O4CM">Routing Topology Rule(Topology=Shortest) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDXCDHGMUWZ1MFGQDJ2BDBLORHYHUXRR2MFAZOLYBROROR5REZQ2WC">Power Plane Connect Rule(Direct Connect )(Expansion=0.508mm) (Conductor Width=0.254mm) (Air Gap=0.254mm) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDY0S03RX0WB4RPSICSKXVXPLDIJM5L3VSUCUFHAIJ0HUPPQ5B2EVB">Hole Size Constraint (Min=0.025mm) (Max=2.54mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDMHL5VGELQMQSIYNVNV3VE4LKUCKB1TNJZKPHLYBLGSBTQJDSN2RG">Hole To Hole Clearance (Gap=0.254mm) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDFMNF40YTS1N3MPVEBSJTTG0BWIOGU0FBN34TPUMNIE00YNRWW3GL">Minimum Solder Mask Sliver (Gap=0.102mm) (All),(All)</a></td>
+<td class="column2">36</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRH4EKJLXGH0CFXDJ1AEYOLVRDK154IAEBKBT4YDTOLQFZP3UNFBG">Silk To Solder Mask (Clearance=0.102mm) (IsPad),(All)</a></td>
+<td class="column2">26</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDB2RY3LXZPNHJCQHU2TGKRP2REGN0TLOGQPWDS5BC50C5BD41D5MG">Silk to Silk (Clearance=0.102mm) (All),(All)</a></td>
+<td class="column2">7</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDNYGD0A3VV11WPTU0FAREUKOYCS23WF1N3AMVN04I03CEYVCJXK">Net Antennae (Tolerance=0mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDIDZENZL2EYRGMDGXW4ATAUMUMDGJQXQPUCQEC3FR1A4IP43HCB2G">Board Clearance Constraint (Gap=0mm) (All)</a></td>
+<td class="column2">6</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID2QTFVBQR3RPDKABDKVKWNN0MJMSXDH22HPSMFVDCTRP0DVQ1NS1O">Height Constraint (Min=0mm) (Max=25.4mm) (Prefered=12.7mm) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">153</td>
+</tr>
+</table><br><a name="IDXNA0AV0LR1SYDTJL0MT1FMWH4DSL33EDEZPZ2YF1RSUJVLROHZRI"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=0.203mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9359.153mil|Location2.X=9368.403mil|Location1.Y=6969.51mil|Location2.Y=6978.76mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9359.153mil|Location2.X=9368.403mil|Location1.Y=6969.51mil|Location2.Y=6978.76mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U11-1(84.087mm,38.437mm) on Top And Pad U11-2(84.087mm,38.837mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9392.618mil|Location2.X=9401.868mil|Location1.Y=6969.479mil|Location2.Y=6978.729mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9392.618mil|Location2.X=9401.868mil|Location1.Y=6969.479mil|Location2.Y=6978.729mil|Absolute=True">Clearance Constraint: (0.198mm &lt; 0.203mm) Between Pad U11-1(84.087mm,38.437mm) on Top And Track (84.087mm,38.837mm)(85.217mm,38.837mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9203.642mil|Location2.X=9212.892mil|Location1.Y=6985.26mil|Location2.Y=6994.51mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9203.642mil|Location2.X=9212.892mil|Location1.Y=6985.26mil|Location2.Y=6994.51mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U11-10(80.137mm,39.237mm) on Top And Pad U11-11(80.137mm,38.837mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9203.642mil|Location2.X=9212.892mil|Location1.Y=7001.01mil|Location2.Y=7010.26mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9203.642mil|Location2.X=9212.892mil|Location1.Y=7001.01mil|Location2.Y=7010.26mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U11-10(80.137mm,39.237mm) on Top And Pad U11-9(80.137mm,39.637mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9203.642mil|Location2.X=9212.892mil|Location1.Y=6969.51mil|Location2.Y=6978.76mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9203.642mil|Location2.X=9212.892mil|Location1.Y=6969.51mil|Location2.Y=6978.76mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U11-11(80.137mm,38.837mm) on Top And Pad U11-12(80.137mm,38.437mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9220.375mil|Location2.X=9229.625mil|Location1.Y=6969.542mil|Location2.Y=6978.792mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9220.375mil|Location2.X=9229.625mil|Location1.Y=6969.542mil|Location2.Y=6978.792mil|Absolute=True">Clearance Constraint: (0.198mm &lt; 0.203mm) Between Pad U11-11(80.137mm,38.837mm) on Top And Track (80.137mm,37.795mm)(80.137mm,38.437mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9359.153mil|Location2.X=9368.403mil|Location1.Y=6985.26mil|Location2.Y=6994.51mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9359.153mil|Location2.X=9368.403mil|Location1.Y=6985.26mil|Location2.Y=6994.51mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U11-2(84.087mm,38.837mm) on Top And Pad U11-3(84.087mm,39.237mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9359.153mil|Location2.X=9368.403mil|Location1.Y=7001.005mil|Location2.Y=7010.255mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9359.153mil|Location2.X=9368.403mil|Location1.Y=7001.005mil|Location2.Y=7010.255mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U11-3(84.087mm,39.237mm) on Top And Pad U11-4(84.087mm,39.637mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9392.618mil|Location2.X=9401.868mil|Location1.Y=6985.292mil|Location2.Y=6994.542mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9392.618mil|Location2.X=9401.868mil|Location1.Y=6985.292mil|Location2.Y=6994.542mil|Absolute=True">Clearance Constraint: (0.198mm &lt; 0.203mm) Between Pad U11-3(84.087mm,39.237mm) on Top And Track (84.087mm,38.837mm)(85.217mm,38.837mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9359.153mil|Location2.X=9368.403mil|Location1.Y=7016.75mil|Location2.Y=7026mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9359.153mil|Location2.X=9368.403mil|Location1.Y=7016.75mil|Location2.Y=7026mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U11-4(84.087mm,39.637mm) on Top And Pad U11-5(84.087mm,40.037mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9359.153mil|Location2.X=9368.403mil|Location1.Y=7032.5mil|Location2.Y=7041.75mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9359.153mil|Location2.X=9368.403mil|Location1.Y=7032.5mil|Location2.Y=7041.75mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U11-5(84.087mm,40.037mm) on Top And Pad U11-6(84.087mm,40.437mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9203.642mil|Location2.X=9212.892mil|Location1.Y=7032.5mil|Location2.Y=7041.75mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9203.642mil|Location2.X=9212.892mil|Location1.Y=7032.5mil|Location2.Y=7041.75mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U11-7(80.137mm,40.437mm) on Top And Pad U11-8(80.137mm,40.037mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9203.642mil|Location2.X=9212.892mil|Location1.Y=7016.755mil|Location2.Y=7026.005mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9203.642mil|Location2.X=9212.892mil|Location1.Y=7016.755mil|Location2.Y=7026.005mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad U11-8(80.137mm,40.037mm) on Top And Pad U11-9(80.137mm,39.637mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.603mil|Location2.X=8108.937mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.603mil|Location2.X=8108.937mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(51.708mm,17.952mm) on Top And Via (51.709mm,18.652mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6156.593mil|Location2.Y=6162.927mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6156.593mil|Location2.Y=6162.927mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(51.708mm,17.952mm) on Top And Via (52.409mm,17.952mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.603mil|Location2.X=8108.937mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.603mil|Location2.X=8108.937mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(51.708mm,19.352mm) on Top And Via (51.709mm,18.652mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.603mil|Location2.X=8108.937mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.603mil|Location2.X=8108.937mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(51.708mm,19.352mm) on Top And Via (51.709mm,20.052mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6211.713mil|Location2.Y=6218.047mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6211.713mil|Location2.Y=6218.047mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(51.708mm,19.352mm) on Top And Via (52.409mm,19.352mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.603mil|Location2.X=8108.937mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.603mil|Location2.X=8108.937mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(51.708mm,20.752mm) on Top And Via (51.709mm,20.052mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6266.833mil|Location2.Y=6273.167mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6266.833mil|Location2.Y=6273.167mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(51.708mm,20.752mm) on Top And Via (52.409mm,20.752mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6156.593mil|Location2.Y=6162.927mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6156.593mil|Location2.Y=6162.927mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(53.108mm,17.952mm) on Top And Via (52.409mm,17.952mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8157.723mil|Location2.X=8164.057mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8157.723mil|Location2.X=8164.057mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(53.108mm,17.952mm) on Top And Via (53.109mm,18.652mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6156.593mil|Location2.Y=6162.927mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6156.593mil|Location2.Y=6162.927mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(53.108mm,17.952mm) on Top And Via (53.809mm,17.952mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6211.713mil|Location2.Y=6218.047mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6211.713mil|Location2.Y=6218.047mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(53.108mm,19.352mm) on Top And Via (52.409mm,19.352mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8157.723mil|Location2.X=8164.057mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8157.723mil|Location2.X=8164.057mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(53.108mm,19.352mm) on Top And Via (53.109mm,18.652mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8157.723mil|Location2.X=8164.057mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8157.723mil|Location2.X=8164.057mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(53.108mm,19.352mm) on Top And Via (53.109mm,20.052mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6211.713mil|Location2.Y=6218.047mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6211.713mil|Location2.Y=6218.047mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(53.108mm,19.352mm) on Top And Via (53.809mm,19.352mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6266.833mil|Location2.Y=6273.167mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8130.163mil|Location2.X=8136.497mil|Location1.Y=6266.833mil|Location2.Y=6273.167mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(53.108mm,20.752mm) on Top And Via (52.409mm,20.752mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8157.723mil|Location2.X=8164.057mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8157.723mil|Location2.X=8164.057mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(53.108mm,20.752mm) on Top And Via (53.109mm,20.052mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6266.833mil|Location2.Y=6273.167mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6266.833mil|Location2.Y=6273.167mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(53.108mm,20.752mm) on Top And Via (53.809mm,20.752mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6156.593mil|Location2.Y=6162.927mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6156.593mil|Location2.Y=6162.927mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(54.508mm,17.952mm) on Top And Via (53.809mm,17.952mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8212.843mil|Location2.X=8219.177mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8212.843mil|Location2.X=8219.177mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(54.508mm,17.952mm) on Top And Via (54.509mm,18.652mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6211.713mil|Location2.Y=6218.047mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6211.713mil|Location2.Y=6218.047mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(54.508mm,19.352mm) on Top And Via (53.809mm,19.352mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8212.843mil|Location2.X=8219.177mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8212.843mil|Location2.X=8219.177mil|Location1.Y=6184.153mil|Location2.Y=6190.487mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(54.508mm,19.352mm) on Top And Via (54.509mm,18.652mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8212.843mil|Location2.X=8219.177mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8212.843mil|Location2.X=8219.177mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(54.508mm,19.352mm) on Top And Via (54.509mm,20.052mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6266.833mil|Location2.Y=6273.167mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8185.283mil|Location2.X=8191.617mil|Location1.Y=6266.833mil|Location2.Y=6273.167mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(54.508mm,20.752mm) on Top And Via (53.809mm,20.752mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8212.843mil|Location2.X=8219.177mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8212.843mil|Location2.X=8219.177mil|Location1.Y=6239.273mil|Location2.Y=6245.607mil|Absolute=True">Clearance Constraint: (Collision &lt; 0.203mm) Between Pad U3-41(54.508mm,20.752mm) on Top And Via (54.509mm,20.052mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.548mil|Location2.X=9445.798mil|Location1.Y=6236.006mil|Location2.Y=6245.256mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.548mil|Location2.X=9445.798mil|Location1.Y=6236.006mil|Location2.Y=6245.256mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB1-A5(86.353mm,19.756mm) on Top And Pad USB1-B7(86.353mm,20.256mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.548mil|Location2.X=9445.798mil|Location1.Y=6216.321mil|Location2.Y=6225.571mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.548mil|Location2.X=9445.798mil|Location1.Y=6216.321mil|Location2.Y=6225.571mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB1-A5(86.353mm,19.756mm) on Top And Pad USB1-B8(86.353mm,19.256mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.538mil|Location2.X=9445.788mil|Location1.Y=6275.376mil|Location2.Y=6284.626mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.538mil|Location2.X=9445.788mil|Location1.Y=6275.376mil|Location2.Y=6284.626mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB1-A6(86.353mm,20.756mm) on Top And Pad USB1-A7(86.353mm,21.256mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.538mil|Location2.X=9445.788mil|Location1.Y=6255.691mil|Location2.Y=6264.941mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.538mil|Location2.X=9445.788mil|Location1.Y=6255.691mil|Location2.Y=6264.941mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB1-A6(86.353mm,20.756mm) on Top And Pad USB1-B7(86.353mm,20.256mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.538mil|Location2.X=9445.788mil|Location1.Y=6295.061mil|Location2.Y=6304.311mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.538mil|Location2.X=9445.788mil|Location1.Y=6295.061mil|Location2.Y=6304.311mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB1-A7(86.353mm,21.256mm) on Top And Pad USB1-B6(86.353mm,21.756mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.538mil|Location2.X=9445.788mil|Location1.Y=6334.431mil|Location2.Y=6343.681mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.538mil|Location2.X=9445.788mil|Location1.Y=6334.431mil|Location2.Y=6343.681mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB1-A8(86.353mm,22.256mm) on Top And Pad USB1-B5(86.353mm,22.756mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7352.005mil|Location2.X=7361.255mil|Location1.Y=5773.203mil|Location2.Y=5782.453mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7352.005mil|Location2.X=7361.255mil|Location1.Y=5773.203mil|Location2.Y=5782.453mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB2-A5(32.43mm,7.525mm) on Top And Pad USB2-B7(32.93mm,7.526mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7332.32mil|Location2.X=7341.57mil|Location1.Y=5773.203mil|Location2.Y=5782.453mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7332.32mil|Location2.X=7341.57mil|Location1.Y=5773.203mil|Location2.Y=5782.453mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB2-A5(32.43mm,7.525mm) on Top And Pad USB2-B8(31.93mm,7.526mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7391.375mil|Location2.X=7400.625mil|Location1.Y=5773.213mil|Location2.Y=5782.463mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7391.375mil|Location2.X=7400.625mil|Location1.Y=5773.213mil|Location2.Y=5782.463mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB2-A6(33.43mm,7.526mm) on Top And Pad USB2-A7(33.93mm,7.526mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7371.69mil|Location2.X=7380.94mil|Location1.Y=5773.213mil|Location2.Y=5782.463mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7371.69mil|Location2.X=7380.94mil|Location1.Y=5773.213mil|Location2.Y=5782.463mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB2-A6(33.43mm,7.526mm) on Top And Pad USB2-B7(32.93mm,7.526mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7411.06mil|Location2.X=7420.31mil|Location1.Y=5773.213mil|Location2.Y=5782.463mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7411.06mil|Location2.X=7420.31mil|Location1.Y=5773.213mil|Location2.Y=5782.463mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB2-A7(33.93mm,7.526mm) on Top And Pad USB2-B6(34.43mm,7.526mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7450.43mil|Location2.X=7459.68mil|Location1.Y=5773.213mil|Location2.Y=5782.463mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7450.43mil|Location2.X=7459.68mil|Location1.Y=5773.213mil|Location2.Y=5782.463mil|Absolute=True">Clearance Constraint: (0.2mm &lt; 0.203mm) Between Pad USB2-A8(34.93mm,7.526mm) on Top And Pad USB2-B5(35.43mm,7.526mm) on Top </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9163.471mil|Location2.X=9173.869mil|Location1.Y=7014.394mil|Location2.Y=7024.721mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9163.471mil|Location2.X=9173.869mil|Location1.Y=7014.394mil|Location2.Y=7024.721mil|Absolute=True">Clearance Constraint: (0.178mm &lt; 0.203mm) Between Track (78.194mm,40.069mm)(79.025mm,39.237mm) on Top And Via (78.97mm,40.083mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9185.391mil|Location2.X=9195.789mil|Location1.Y=7036.314mil|Location2.Y=7046.641mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9185.391mil|Location2.X=9195.789mil|Location1.Y=7036.314mil|Location2.Y=7046.641mil|Absolute=True">Clearance Constraint: (0.178mm &lt; 0.203mm) Between Track (78.867mm,40.976mm)(79.406mm,40.437mm) on Top And Via (78.97mm,40.083mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9186.509mil|Location2.X=9195.897mil|Location1.Y=7034.261mil|Location2.Y=7045.49mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9186.509mil|Location2.X=9195.897mil|Location1.Y=7034.261mil|Location2.Y=7045.49mil|Absolute=True">Clearance Constraint: (0.181mm &lt; 0.203mm) Between Track (79.406mm,40.437mm)(80.137mm,40.437mm) on Top And Via (78.97mm,40.083mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDQ1HPTHLJOERFLIQ22J5UHZAHVEFYWKHMRXZ1PVIVYEQMAE3P4AAG"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=0.203mm) (InPolygon),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9050.375mil|Location2.X=9059.625mil|Location1.Y=6982.375mil|Location2.Y=6991.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9050.375mil|Location2.X=9059.625mil|Location1.Y=6982.375mil|Location2.Y=6991.625mil|Absolute=True">Clearance Constraint: (0.152mm &lt; 0.203mm) Between Polygon Region (1 hole(s)) POWER And Via (75.819mm,39.319mm) from Top to Bottom </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDNJYMFQWOW1N5G0M2EATHNRC3OB2KDRL2KYENMMJPUWX5EVJUZE2L"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Short-Circuit Constraint (Allowed=No) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8097.294mil|Location2.X=8114.246mil|Location1.Y=6167.871mil|Location2.Y=6184.822mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8097.294mil|Location2.X=8114.246mil|Location1.Y=6167.871mil|Location2.Y=6184.822mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(51.708mm,17.952mm) on Top And Via (51.709mm,18.652mm) from Top to Bottom Location : [X = 205.887mm][Y = 156.879mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8113.889mil|Location2.X=8130.814mil|Location1.Y=6151.298mil|Location2.Y=6168.222mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8113.889mil|Location2.X=8130.814mil|Location1.Y=6151.298mil|Location2.Y=6168.222mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(51.708mm,17.952mm) on Top And Via (52.409mm,17.952mm) from Top to Bottom Location : [X = 206.308mm][Y = 156.458mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8097.294mil|Location2.X=8114.246mil|Location1.Y=6189.818mil|Location2.Y=6206.769mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8097.294mil|Location2.X=8114.246mil|Location1.Y=6189.818mil|Location2.Y=6206.769mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(51.708mm,19.352mm) on Top And Via (51.709mm,18.652mm) from Top to Bottom Location : [X = 205.887mm][Y = 157.437mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8097.294mil|Location2.X=8114.246mil|Location1.Y=6222.991mil|Location2.Y=6239.942mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8097.294mil|Location2.X=8114.246mil|Location1.Y=6222.991mil|Location2.Y=6239.942mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(51.708mm,19.352mm) on Top And Via (51.709mm,20.052mm) from Top to Bottom Location : [X = 205.887mm][Y = 158.279mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8113.889mil|Location2.X=8130.814mil|Location1.Y=6206.418mil|Location2.Y=6223.342mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8113.889mil|Location2.X=8130.814mil|Location1.Y=6206.418mil|Location2.Y=6223.342mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(51.708mm,19.352mm) on Top And Via (52.409mm,19.352mm) from Top to Bottom Location : [X = 206.308mm][Y = 157.858mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8097.294mil|Location2.X=8114.246mil|Location1.Y=6244.938mil|Location2.Y=6261.889mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8097.294mil|Location2.X=8114.246mil|Location1.Y=6244.938mil|Location2.Y=6261.889mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(51.708mm,20.752mm) on Top And Via (51.709mm,20.052mm) from Top to Bottom Location : [X = 205.887mm][Y = 158.837mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8113.889mil|Location2.X=8130.814mil|Location1.Y=6261.538mil|Location2.Y=6278.462mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8113.889mil|Location2.X=8130.814mil|Location1.Y=6261.538mil|Location2.Y=6278.462mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(51.708mm,20.752mm) on Top And Via (52.409mm,20.752mm) from Top to Bottom Location : [X = 206.308mm][Y = 159.258mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8135.809mil|Location2.X=8152.788mil|Location1.Y=6151.27mil|Location2.Y=6168.249mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8135.809mil|Location2.X=8152.788mil|Location1.Y=6151.27mil|Location2.Y=6168.249mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(53.108mm,17.952mm) on Top And Via (52.409mm,17.952mm) from Top to Bottom Location : [X = 206.865mm][Y = 156.458mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.414mil|Location2.X=8169.366mil|Location1.Y=6167.871mil|Location2.Y=6184.822mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.414mil|Location2.X=8169.366mil|Location1.Y=6167.871mil|Location2.Y=6184.822mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(53.108mm,17.952mm) on Top And Via (53.109mm,18.652mm) from Top to Bottom Location : [X = 207.287mm][Y = 156.879mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8169.009mil|Location2.X=8185.934mil|Location1.Y=6151.298mil|Location2.Y=6168.222mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8169.009mil|Location2.X=8185.934mil|Location1.Y=6151.298mil|Location2.Y=6168.222mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(53.108mm,17.952mm) on Top And Via (53.809mm,17.952mm) from Top to Bottom Location : [X = 207.708mm][Y = 156.458mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8135.809mil|Location2.X=8152.788mil|Location1.Y=6206.391mil|Location2.Y=6223.369mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8135.809mil|Location2.X=8152.788mil|Location1.Y=6206.391mil|Location2.Y=6223.369mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(53.108mm,19.352mm) on Top And Via (52.409mm,19.352mm) from Top to Bottom Location : [X = 206.865mm][Y = 157.858mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.414mil|Location2.X=8169.366mil|Location1.Y=6189.818mil|Location2.Y=6206.769mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.414mil|Location2.X=8169.366mil|Location1.Y=6189.818mil|Location2.Y=6206.769mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(53.108mm,19.352mm) on Top And Via (53.109mm,18.652mm) from Top to Bottom Location : [X = 207.287mm][Y = 157.437mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.414mil|Location2.X=8169.366mil|Location1.Y=6222.991mil|Location2.Y=6239.942mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.414mil|Location2.X=8169.366mil|Location1.Y=6222.991mil|Location2.Y=6239.942mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(53.108mm,19.352mm) on Top And Via (53.109mm,20.052mm) from Top to Bottom Location : [X = 207.287mm][Y = 158.279mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8169.009mil|Location2.X=8185.934mil|Location1.Y=6206.418mil|Location2.Y=6223.342mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8169.009mil|Location2.X=8185.934mil|Location1.Y=6206.418mil|Location2.Y=6223.342mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(53.108mm,19.352mm) on Top And Via (53.809mm,19.352mm) from Top to Bottom Location : [X = 207.708mm][Y = 157.858mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8135.809mil|Location2.X=8152.788mil|Location1.Y=6261.511mil|Location2.Y=6278.489mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8135.809mil|Location2.X=8152.788mil|Location1.Y=6261.511mil|Location2.Y=6278.489mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(53.108mm,20.752mm) on Top And Via (52.409mm,20.752mm) from Top to Bottom Location : [X = 206.865mm][Y = 159.258mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.414mil|Location2.X=8169.366mil|Location1.Y=6244.938mil|Location2.Y=6261.889mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8152.414mil|Location2.X=8169.366mil|Location1.Y=6244.938mil|Location2.Y=6261.889mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(53.108mm,20.752mm) on Top And Via (53.109mm,20.052mm) from Top to Bottom Location : [X = 207.287mm][Y = 158.837mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8169.009mil|Location2.X=8185.934mil|Location1.Y=6261.538mil|Location2.Y=6278.462mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8169.009mil|Location2.X=8185.934mil|Location1.Y=6261.538mil|Location2.Y=6278.462mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(53.108mm,20.752mm) on Top And Via (53.809mm,20.752mm) from Top to Bottom Location : [X = 207.708mm][Y = 159.258mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8190.929mil|Location2.X=8207.908mil|Location1.Y=6151.27mil|Location2.Y=6168.249mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8190.929mil|Location2.X=8207.908mil|Location1.Y=6151.27mil|Location2.Y=6168.249mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(54.508mm,17.952mm) on Top And Via (53.809mm,17.952mm) from Top to Bottom Location : [X = 208.265mm][Y = 156.458mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8207.534mil|Location2.X=8224.486mil|Location1.Y=6167.871mil|Location2.Y=6184.822mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8207.534mil|Location2.X=8224.486mil|Location1.Y=6167.871mil|Location2.Y=6184.822mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(54.508mm,17.952mm) on Top And Via (54.509mm,18.652mm) from Top to Bottom Location : [X = 208.687mm][Y = 156.879mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8190.929mil|Location2.X=8207.908mil|Location1.Y=6206.391mil|Location2.Y=6223.369mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8190.929mil|Location2.X=8207.908mil|Location1.Y=6206.391mil|Location2.Y=6223.369mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(54.508mm,19.352mm) on Top And Via (53.809mm,19.352mm) from Top to Bottom Location : [X = 208.265mm][Y = 157.858mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8207.534mil|Location2.X=8224.486mil|Location1.Y=6189.818mil|Location2.Y=6206.769mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8207.534mil|Location2.X=8224.486mil|Location1.Y=6189.818mil|Location2.Y=6206.769mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(54.508mm,19.352mm) on Top And Via (54.509mm,18.652mm) from Top to Bottom Location : [X = 208.687mm][Y = 157.437mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8207.534mil|Location2.X=8224.486mil|Location1.Y=6222.991mil|Location2.Y=6239.942mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8207.534mil|Location2.X=8224.486mil|Location1.Y=6222.991mil|Location2.Y=6239.942mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(54.508mm,19.352mm) on Top And Via (54.509mm,20.052mm) from Top to Bottom Location : [X = 208.687mm][Y = 158.279mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8190.929mil|Location2.X=8207.908mil|Location1.Y=6261.511mil|Location2.Y=6278.489mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8190.929mil|Location2.X=8207.908mil|Location1.Y=6261.511mil|Location2.Y=6278.489mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(54.508mm,20.752mm) on Top And Via (53.809mm,20.752mm) from Top to Bottom Location : [X = 208.265mm][Y = 159.258mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8207.534mil|Location2.X=8224.486mil|Location1.Y=6244.938mil|Location2.Y=6261.889mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8207.534mil|Location2.X=8224.486mil|Location1.Y=6244.938mil|Location2.Y=6261.889mil|Absolute=True">Short-Circuit Constraint: Between Pad U3-41(54.508mm,20.752mm) on Top And Via (54.509mm,20.052mm) from Top to Bottom Location : [X = 208.687mm][Y = 158.837mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDADXJ5SLD1PF5D0RDF5K2KN2ENJ0WBO3ZORB4LOLX2GKYK3XHMHOB"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8084.043mil|Location2.X=8182.596mil|Location1.Y=6193.163mil|Location2.Y=6236.596mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8084.043mil|Location2.X=8182.596mil|Location1.Y=6193.163mil|Location2.Y=6236.596mil|Absolute=True">Un-Routed Net Constraint: Net DGND Between Pad U3-41(51.708mm,19.352mm) on Top And Pad U3-41(53.108mm,19.352mm) on Top </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDFMNF40YTS1N3MPVEBSJTTG0BWIOGU0FBN34TPUMNIE00YNRWW3GL"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=0.102mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8176.525mil|Location2.X=8181.775mil|Location1.Y=7085.005mil|Location2.Y=7090.255mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8176.525mil|Location2.X=8181.775mil|Location1.Y=7085.005mil|Location2.Y=7090.255mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.102mm) Between Pad U4-1(53.924mm,41.27mm) on Top And Pad U4-2(53.924mm,41.77mm) on Top [Top Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.525mil|Location2.X=8107.775mil|Location1.Y=7104.69mil|Location2.Y=7109.94mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.525mil|Location2.X=8107.775mil|Location1.Y=7104.69mil|Location2.Y=7109.94mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.018mm &lt; 0.102mm) Between Pad U4-10(52.045mm,42.27mm) on Top And Pad U4-11(52.045mm,41.77mm) on Top [Top Solder] Mask Sliver [0.018mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.525mil|Location2.X=8107.775mil|Location1.Y=7124.375mil|Location2.Y=7129.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.525mil|Location2.X=8107.775mil|Location1.Y=7124.375mil|Location2.Y=7129.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.102mm) Between Pad U4-10(52.045mm,42.27mm) on Top And Pad U4-9(52.045mm,42.77mm) on Top [Top Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.525mil|Location2.X=8107.775mil|Location1.Y=7085.005mil|Location2.Y=7090.255mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.525mil|Location2.X=8107.775mil|Location1.Y=7085.005mil|Location2.Y=7090.255mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.102mm) Between Pad U4-11(52.045mm,41.77mm) on Top And Pad U4-12(52.045mm,41.27mm) on Top [Top Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8176.525mil|Location2.X=8181.775mil|Location1.Y=7104.69mil|Location2.Y=7109.94mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8176.525mil|Location2.X=8181.775mil|Location1.Y=7104.69mil|Location2.Y=7109.94mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.018mm &lt; 0.102mm) Between Pad U4-2(53.924mm,41.77mm) on Top And Pad U4-3(53.924mm,42.27mm) on Top [Top Solder] Mask Sliver [0.018mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8176.525mil|Location2.X=8181.775mil|Location1.Y=7124.375mil|Location2.Y=7129.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8176.525mil|Location2.X=8181.775mil|Location1.Y=7124.375mil|Location2.Y=7129.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.102mm) Between Pad U4-3(53.924mm,42.27mm) on Top And Pad U4-4(53.924mm,42.77mm) on Top [Top Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8176.525mil|Location2.X=8181.775mil|Location1.Y=7144.06mil|Location2.Y=7149.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8176.525mil|Location2.X=8181.775mil|Location1.Y=7144.06mil|Location2.Y=7149.31mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.018mm &lt; 0.102mm) Between Pad U4-4(53.924mm,42.77mm) on Top And Pad U4-5(53.924mm,43.27mm) on Top [Top Solder] Mask Sliver [0.018mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8176.525mil|Location2.X=8181.775mil|Location1.Y=7163.745mil|Location2.Y=7168.995mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8176.525mil|Location2.X=8181.775mil|Location1.Y=7163.745mil|Location2.Y=7168.995mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.102mm) Between Pad U4-5(53.924mm,43.27mm) on Top And Pad U4-6(53.924mm,43.77mm) on Top [Top Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.525mil|Location2.X=8107.775mil|Location1.Y=7163.745mil|Location2.Y=7168.995mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.525mil|Location2.X=8107.775mil|Location1.Y=7163.745mil|Location2.Y=7168.995mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.017mm &lt; 0.102mm) Between Pad U4-7(52.045mm,43.77mm) on Top And Pad U4-8(52.045mm,43.27mm) on Top [Top Solder] Mask Sliver [0.017mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.525mil|Location2.X=8107.775mil|Location1.Y=7144.06mil|Location2.Y=7149.31mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8102.525mil|Location2.X=8107.775mil|Location1.Y=7144.06mil|Location2.Y=7149.31mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.018mm &lt; 0.102mm) Between Pad U4-8(52.045mm,43.27mm) on Top And Pad U4-9(52.045mm,42.77mm) on Top [Top Solder] Mask Sliver [0.018mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8830.245mil|Location2.X=8835.495mil|Location1.Y=6715.16mil|Location2.Y=6720.41mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8830.245mil|Location2.X=8835.495mil|Location1.Y=6715.16mil|Location2.Y=6720.41mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-1(69.725mm,31.875mm) on Top And Pad U7-2(69.725mm,32.376mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8680.505mil|Location2.X=8685.755mil|Location1.Y=6774.22mil|Location2.Y=6779.47mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8680.505mil|Location2.X=8685.755mil|Location1.Y=6774.22mil|Location2.Y=6779.47mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-10(66.825mm,33.876mm) on Top And Pad U7-11(66.825mm,33.376mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8716.065mil|Location2.X=8721.315mil|Location1.Y=6793.905mil|Location2.Y=6799.155mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8716.065mil|Location2.X=8721.315mil|Location1.Y=6793.905mil|Location2.Y=6799.155mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-10(66.825mm,33.876mm) on Top And Pad U7-9(66.825mm,34.376mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8680.505mil|Location2.X=8685.755mil|Location1.Y=6754.535mil|Location2.Y=6759.785mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8680.505mil|Location2.X=8685.755mil|Location1.Y=6754.535mil|Location2.Y=6759.785mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-11(66.825mm,33.376mm) on Top And Pad U7-12(66.825mm,32.876mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8680.505mil|Location2.X=8685.755mil|Location1.Y=6734.85mil|Location2.Y=6740.1mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8680.505mil|Location2.X=8685.755mil|Location1.Y=6734.85mil|Location2.Y=6740.1mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-12(66.825mm,32.876mm) on Top And Pad U7-13(66.825mm,32.376mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8680.505mil|Location2.X=8685.755mil|Location1.Y=6715.16mil|Location2.Y=6720.41mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8680.505mil|Location2.X=8685.755mil|Location1.Y=6715.16mil|Location2.Y=6720.41mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-13(66.825mm,32.376mm) on Top And Pad U7-14(66.825mm,31.875mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8794.685mil|Location2.X=8799.935mil|Location1.Y=6734.85mil|Location2.Y=6740.1mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8794.685mil|Location2.X=8799.935mil|Location1.Y=6734.85mil|Location2.Y=6740.1mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-2(69.725mm,32.376mm) on Top And Pad U7-3(69.725mm,32.876mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8830.245mil|Location2.X=8835.495mil|Location1.Y=6754.535mil|Location2.Y=6759.785mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8830.245mil|Location2.X=8835.495mil|Location1.Y=6754.535mil|Location2.Y=6759.785mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-3(69.725mm,32.876mm) on Top And Pad U7-4(69.725mm,33.376mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8830.245mil|Location2.X=8835.495mil|Location1.Y=6774.22mil|Location2.Y=6779.47mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8830.245mil|Location2.X=8835.495mil|Location1.Y=6774.22mil|Location2.Y=6779.47mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-4(69.725mm,33.376mm) on Top And Pad U7-5(69.725mm,33.876mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8830.245mil|Location2.X=8835.495mil|Location1.Y=6793.905mil|Location2.Y=6799.155mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8830.245mil|Location2.X=8835.495mil|Location1.Y=6793.905mil|Location2.Y=6799.155mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-5(69.725mm,33.876mm) on Top And Pad U7-6(69.725mm,34.376mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8794.685mil|Location2.X=8799.935mil|Location1.Y=6813.59mil|Location2.Y=6818.84mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8794.685mil|Location2.X=8799.935mil|Location1.Y=6813.59mil|Location2.Y=6818.84mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-6(69.725mm,34.376mm) on Top And Pad U7-7(69.725mm,34.876mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8680.505mil|Location2.X=8685.755mil|Location1.Y=6813.59mil|Location2.Y=6818.84mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8680.505mil|Location2.X=8685.755mil|Location1.Y=6813.59mil|Location2.Y=6818.84mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.047mm &lt; 0.102mm) Between Pad U7-8(66.825mm,34.876mm) on Top And Pad U7-9(66.825mm,34.376mm) on Top [Top Solder] Mask Sliver [0.047mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.589mil|Location2.X=9441.839mil|Location1.Y=6238.006mil|Location2.Y=6243.256mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.589mil|Location2.X=9441.839mil|Location1.Y=6238.006mil|Location2.Y=6243.256mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB1-A5(86.353mm,19.756mm) on Top And Pad USB1-B7(86.353mm,20.256mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.589mil|Location2.X=9441.839mil|Location1.Y=6218.321mil|Location2.Y=6223.571mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.589mil|Location2.X=9441.839mil|Location1.Y=6218.321mil|Location2.Y=6223.571mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB1-A5(86.353mm,19.756mm) on Top And Pad USB1-B8(86.353mm,19.256mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.569mil|Location2.X=9441.819mil|Location1.Y=6277.376mil|Location2.Y=6282.626mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.569mil|Location2.X=9441.819mil|Location1.Y=6277.376mil|Location2.Y=6282.626mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB1-A6(86.353mm,20.756mm) on Top And Pad USB1-A7(86.353mm,21.256mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.569mil|Location2.X=9441.819mil|Location1.Y=6257.691mil|Location2.Y=6262.941mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.569mil|Location2.X=9441.819mil|Location1.Y=6257.691mil|Location2.Y=6262.941mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB1-A6(86.353mm,20.756mm) on Top And Pad USB1-B7(86.353mm,20.256mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.569mil|Location2.X=9441.819mil|Location1.Y=6297.061mil|Location2.Y=6302.311mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.569mil|Location2.X=9441.819mil|Location1.Y=6297.061mil|Location2.Y=6302.311mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB1-A7(86.353mm,21.256mm) on Top And Pad USB1-B6(86.353mm,21.756mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.569mil|Location2.X=9441.819mil|Location1.Y=6336.431mil|Location2.Y=6341.681mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.569mil|Location2.X=9441.819mil|Location1.Y=6336.431mil|Location2.Y=6341.681mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB1-A8(86.353mm,22.256mm) on Top And Pad USB1-B5(86.353mm,22.756mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.569mil|Location2.X=9441.819mil|Location1.Y=6316.746mil|Location2.Y=6321.996mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9436.569mil|Location2.X=9441.819mil|Location1.Y=6316.746mil|Location2.Y=6321.996mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB1-A8(86.353mm,22.256mm) on Top And Pad USB1-B6(86.353mm,21.756mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7354.005mil|Location2.X=7359.255mil|Location1.Y=5777.162mil|Location2.Y=5782.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7354.005mil|Location2.X=7359.255mil|Location1.Y=5777.162mil|Location2.Y=5782.412mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB2-A5(32.43mm,7.525mm) on Top And Pad USB2-B7(32.93mm,7.526mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7334.32mil|Location2.X=7339.57mil|Location1.Y=5777.162mil|Location2.Y=5782.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7334.32mil|Location2.X=7339.57mil|Location1.Y=5777.162mil|Location2.Y=5782.412mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB2-A5(32.43mm,7.525mm) on Top And Pad USB2-B8(31.93mm,7.526mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7393.375mil|Location2.X=7398.625mil|Location1.Y=5777.182mil|Location2.Y=5782.432mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7393.375mil|Location2.X=7398.625mil|Location1.Y=5777.182mil|Location2.Y=5782.432mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB2-A6(33.43mm,7.526mm) on Top And Pad USB2-A7(33.93mm,7.526mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7373.69mil|Location2.X=7378.94mil|Location1.Y=5777.182mil|Location2.Y=5782.432mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7373.69mil|Location2.X=7378.94mil|Location1.Y=5777.182mil|Location2.Y=5782.432mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB2-A6(33.43mm,7.526mm) on Top And Pad USB2-B7(32.93mm,7.526mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7413.06mil|Location2.X=7418.31mil|Location1.Y=5777.182mil|Location2.Y=5782.432mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7413.06mil|Location2.X=7418.31mil|Location1.Y=5777.182mil|Location2.Y=5782.432mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB2-A7(33.93mm,7.526mm) on Top And Pad USB2-B6(34.43mm,7.526mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7452.43mil|Location2.X=7457.68mil|Location1.Y=5777.182mil|Location2.Y=5782.432mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7452.43mil|Location2.X=7457.68mil|Location1.Y=5777.182mil|Location2.Y=5782.432mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB2-A8(34.93mm,7.526mm) on Top And Pad USB2-B5(35.43mm,7.526mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7432.745mil|Location2.X=7437.995mil|Location1.Y=5777.182mil|Location2.Y=5782.432mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7432.745mil|Location2.X=7437.995mil|Location1.Y=5777.182mil|Location2.Y=5782.432mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (0.1mm &lt; 0.102mm) Between Pad USB2-A8(34.93mm,7.526mm) on Top And Pad USB2-B6(34.43mm,7.526mm) on Top [Top Solder] Mask Sliver [0.1mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDRH4EKJLXGH0CFXDJ1AEYOLVRDK154IAEBKBT4YDTOLQFZP3UNFBG"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=0.102mm) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9451.174mil|Location2.X=9456.424mil|Location1.Y=6610.247mil|Location2.Y=6615.497mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9451.174mil|Location2.X=9456.424mil|Location1.Y=6610.247mil|Location2.Y=6615.497mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.096mm &lt; 0.102mm) Between Pad D1-1(86.997mm,29.515mm) on Top And Track (84.618mm,29.461mm)(85.837mm,29.461mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.096mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9239.45mil|Location2.X=9244.7mil|Location1.Y=6406.042mil|Location2.Y=6411.292mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9239.45mil|Location2.X=9244.7mil|Location1.Y=6406.042mil|Location2.Y=6411.292mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.1mm &lt; 0.102mm) Between Pad D2-1(80.721mm,24.114mm) on Top And Track (80.42mm,24.364mm)(81.02mm,24.364mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9251.3mil|Location2.X=9256.55mil|Location1.Y=6376.809mil|Location2.Y=6382.059mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9251.3mil|Location2.X=9256.55mil|Location1.Y=6376.809mil|Location2.Y=6382.059mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.095mm &lt; 0.102mm) Between Pad D2-2(80.722mm,23.689mm) on Top And Track (80.42mm,23.444mm)(81.02mm,23.444mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.095mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9251.3mil|Location2.X=9256.55mil|Location1.Y=6308.709mil|Location2.Y=6313.959mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9251.3mil|Location2.X=9256.55mil|Location1.Y=6308.709mil|Location2.Y=6313.959mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.1mm &lt; 0.102mm) Between Pad D3-1(80.722mm,21.962mm) on Top And Track (80.423mm,21.712mm)(81.023mm,21.712mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9239.45mil|Location2.X=9244.7mil|Location1.Y=6337.942mil|Location2.Y=6343.192mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9239.45mil|Location2.X=9244.7mil|Location1.Y=6337.942mil|Location2.Y=6343.192mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.095mm &lt; 0.102mm) Between Pad D3-2(80.721mm,22.387mm) on Top And Track (80.423mm,22.632mm)(81.023mm,22.632mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.095mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9455.391mil|Location2.X=9460.641mil|Location1.Y=5657.395mil|Location2.Y=5662.645mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9455.391mil|Location2.X=9460.641mil|Location1.Y=5657.395mil|Location2.Y=5662.645mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.095mm &lt; 0.102mm) Between Pad D4-1(87.224mm,5.334mm) on Top And Region (0 hole(s)) Top Overlay [Top Overlay] to [Top Solder] clearance [0.095mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9547.359mil|Location2.X=9552.609mil|Location1.Y=5657.395mil|Location2.Y=5662.645mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9547.359mil|Location2.X=9552.609mil|Location1.Y=5657.395mil|Location2.Y=5662.645mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.095mm &lt; 0.102mm) Between Pad D4-1(87.224mm,5.334mm) on Top And Region (0 hole(s)) Top Overlay [Top Overlay] to [Top Solder] clearance [0.095mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9455.391mil|Location2.X=9460.641mil|Location1.Y=5852.395mil|Location2.Y=5857.645mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9455.391mil|Location2.X=9460.641mil|Location1.Y=5852.395mil|Location2.Y=5857.645mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.095mm &lt; 0.102mm) Between Pad D4-2(87.224mm,10.517mm) on Top And Region (0 hole(s)) Top Overlay [Top Overlay] to [Top Solder] clearance [0.095mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9547.359mil|Location2.X=9552.609mil|Location1.Y=5852.395mil|Location2.Y=5857.645mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9547.359mil|Location2.X=9552.609mil|Location1.Y=5852.395mil|Location2.Y=5857.645mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.095mm &lt; 0.102mm) Between Pad D4-2(87.224mm,10.517mm) on Top And Region (0 hole(s)) Top Overlay [Top Overlay] to [Top Solder] clearance [0.095mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7555.47mil|Location2.X=7560.72mil|Location1.Y=5952.674mil|Location2.Y=5957.924mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7555.47mil|Location2.X=7560.72mil|Location1.Y=5952.674mil|Location2.Y=5957.924mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.1mm &lt; 0.102mm) Between Pad D6-1(37.948mm,12.598mm) on Top And Track (37.647mm,12.848mm)(38.247mm,12.848mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7567.32mil|Location2.X=7572.57mil|Location1.Y=5923.442mil|Location2.Y=5928.692mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7567.32mil|Location2.X=7572.57mil|Location1.Y=5923.442mil|Location2.Y=5928.692mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.095mm &lt; 0.102mm) Between Pad D6-2(37.949mm,12.173mm) on Top And Track (37.647mm,11.928mm)(38.247mm,11.928mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.095mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7567.301mil|Location2.X=7572.551mil|Location1.Y=5873.709mil|Location2.Y=5878.959mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7567.301mil|Location2.X=7572.551mil|Location1.Y=5873.709mil|Location2.Y=5878.959mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.1mm &lt; 0.102mm) Between Pad D7-1(37.948mm,10.913mm) on Top And Track (37.649mm,10.663mm)(38.249mm,10.663mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.1mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7555.449mil|Location2.X=7560.699mil|Location1.Y=5902.941mil|Location2.Y=5908.191mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7555.449mil|Location2.X=7560.699mil|Location1.Y=5902.941mil|Location2.Y=5908.191mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.095mm &lt; 0.102mm) Between Pad D7-2(37.947mm,11.338mm) on Top And Track (37.649mm,11.583mm)(38.249mm,11.583mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.095mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8823.337mil|Location2.X=8828.587mil|Location1.Y=6179.101mil|Location2.Y=6184.351mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8823.337mil|Location2.X=8828.587mil|Location1.Y=6179.101mil|Location2.Y=6184.351mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.068mm &lt; 0.102mm) Between Pad Q1-1(70.275mm,18.125mm) on Top And Track (70.001mm,18.62mm)(70.001mm,19.531mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.068mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8823.337mil|Location2.X=8828.587mil|Location1.Y=6223.65mil|Location2.Y=6228.9mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8823.337mil|Location2.X=8828.587mil|Location1.Y=6223.65mil|Location2.Y=6228.9mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.068mm &lt; 0.102mm) Between Pad Q1-2(70.275mm,20.025mm) on Top And Track (70.001mm,18.62mm)(70.001mm,19.531mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.068mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8766.155mil|Location2.X=8771.405mil|Location1.Y=6186.249mil|Location2.Y=6191.499mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8766.155mil|Location2.X=8771.405mil|Location1.Y=6186.249mil|Location2.Y=6191.499mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.068mm &lt; 0.102mm) Between Pad Q1-3(68.275mm,19.075mm) on Top And Track (68.549mm,17.549mm)(68.549mm,18.581mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.068mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8766.155mil|Location2.X=8771.405mil|Location1.Y=6216.501mil|Location2.Y=6221.751mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8766.155mil|Location2.X=8771.405mil|Location1.Y=6216.501mil|Location2.Y=6221.751mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.068mm &lt; 0.102mm) Between Pad Q1-3(68.275mm,19.075mm) on Top And Track (68.549mm,19.57mm)(68.549mm,20.602mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.068mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8824.597mil|Location2.X=8829.847mil|Location1.Y=6316.501mil|Location2.Y=6321.751mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8824.597mil|Location2.X=8829.847mil|Location1.Y=6316.501mil|Location2.Y=6321.751mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.068mm &lt; 0.102mm) Between Pad Q2-1(70.307mm,21.615mm) on Top And Track (70.033mm,22.11mm)(70.033mm,23.021mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.068mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8824.597mil|Location2.X=8829.847mil|Location1.Y=6361.05mil|Location2.Y=6366.3mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8824.597mil|Location2.X=8829.847mil|Location1.Y=6361.05mil|Location2.Y=6366.3mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.068mm &lt; 0.102mm) Between Pad Q2-2(70.307mm,23.515mm) on Top And Track (70.033mm,22.11mm)(70.033mm,23.021mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.068mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8767.415mil|Location2.X=8772.665mil|Location1.Y=6323.649mil|Location2.Y=6328.899mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8767.415mil|Location2.X=8772.665mil|Location1.Y=6323.649mil|Location2.Y=6328.899mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.068mm &lt; 0.102mm) Between Pad Q2-3(68.307mm,22.565mm) on Top And Track (68.581mm,21.039mm)(68.581mm,22.071mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.068mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8767.415mil|Location2.X=8772.665mil|Location1.Y=6353.901mil|Location2.Y=6359.151mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8767.415mil|Location2.X=8772.665mil|Location1.Y=6353.901mil|Location2.Y=6359.151mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.068mm &lt; 0.102mm) Between Pad Q2-3(68.307mm,22.565mm) on Top And Track (68.581mm,23.06mm)(68.581mm,24.092mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.068mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8954.997mil|Location2.X=8960.247mil|Location1.Y=7761.989mil|Location2.Y=7767.239mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8954.997mil|Location2.X=8960.247mil|Location1.Y=7761.989mil|Location2.Y=7767.239mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.039mm &lt; 0.102mm) Between Pad SW1-1(73.152mm,59.614mm) on Multi-Layer And Text "C29" (71.935mm,57.996mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.039mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8200.225mil|Location2.X=8205.475mil|Location1.Y=7067.77mil|Location2.Y=7073.02mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8200.225mil|Location2.X=8205.475mil|Location1.Y=7067.77mil|Location2.Y=7073.02mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.096mm &lt; 0.102mm) Between Pad U4-1(53.924mm,41.27mm) on Top And Track (53.557mm,40.97mm)(54.381mm,40.97mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.096mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8126.225mil|Location2.X=8131.475mil|Location1.Y=7067.77mil|Location2.Y=7073.02mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8126.225mil|Location2.X=8131.475mil|Location1.Y=7067.77mil|Location2.Y=7073.02mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.096mm &lt; 0.102mm) Between Pad U4-12(52.045mm,41.27mm) on Top And Track (51.613mm,40.97mm)(52.412mm,40.97mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.096mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8180.525mil|Location2.X=8185.775mil|Location1.Y=7180.98mil|Location2.Y=7186.23mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8180.525mil|Location2.X=8185.775mil|Location1.Y=7180.98mil|Location2.Y=7186.23mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.096mm &lt; 0.102mm) Between Pad U4-6(53.924mm,43.77mm) on Top And Track (53.557mm,44.069mm)(54.381mm,44.069mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.096mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8106.525mil|Location2.X=8111.775mil|Location1.Y=7180.98mil|Location2.Y=7186.23mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8106.525mil|Location2.X=8111.775mil|Location1.Y=7180.98mil|Location2.Y=7186.23mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (0.096mm &lt; 0.102mm) Between Pad U4-7(52.045mm,43.77mm) on Top And Track (51.613mm,44.069mm)(52.412mm,44.069mm) on Top Overlay [Top Overlay] to [Top Solder] clearance [0.096mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDB2RY3LXZPNHJCQHU2TGKRP2REGN0TLOGQPWDS5BC50C5BD41D5MG"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=0.102mm) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6950.615mil|Location2.X=6955.865mil|Location1.Y=8037.538mil|Location2.Y=8042.788mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=6950.615mil|Location2.X=6955.865mil|Location1.Y=8037.538mil|Location2.Y=8042.788mil|Absolute=True">Silk To Silk Clearance Constraint: (0.043mm &lt; 0.102mm) Between Text "C28" (22.106mm,64.978mm) on Top Overlay And Track (21.793mm,65.862mm)(24.333mm,65.862mm) on Top Overlay Silk Text to Silk Clearance [0.043mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8922.609mil|Location2.X=8933.206mil|Location1.Y=7571.345mil|Location2.Y=7578.026mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8922.609mil|Location2.X=8933.206mil|Location1.Y=7571.345mil|Location2.Y=7578.026mil|Absolute=True">Silk To Silk Clearance Constraint: (0.075mm &lt; 0.102mm) Between Text "C29" (72.089mm,53.173mm) on Top Overlay And Track (72.573mm,54.066mm)(72.573mm,57.516mm) on Top Overlay Silk Text to Silk Clearance [0.075mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8942.41mil|Location2.X=8947.66mil|Location1.Y=7572.767mil|Location2.Y=7578.017mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8942.41mil|Location2.X=8947.66mil|Location1.Y=7572.767mil|Location2.Y=7578.017mil|Absolute=True">Silk To Silk Clearance Constraint: (0.06mm &lt; 0.102mm) Between Text "C29" (72.089mm,53.173mm) on Top Overlay And Track (72.573mm,54.066mm)(73.623mm,54.066mm) on Top Overlay Silk Text to Silk Clearance [0.06mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8964.592mil|Location2.X=8969.842mil|Location1.Y=7572.774mil|Location2.Y=7578.024mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=8964.592mil|Location2.X=8969.842mil|Location1.Y=7572.774mil|Location2.Y=7578.024mil|Absolute=True">Silk To Silk Clearance Constraint: (0.067mm &lt; 0.102mm) Between Text "C29" (72.089mm,53.173mm) on Top Overlay And Track (73.623mm,54.066mm)(73.623mm,57.486mm) on Top Overlay Silk Text to Silk Clearance [0.067mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9023.727mil|Location2.X=9034.465mil|Location1.Y=7571.704mil|Location2.Y=7578.364mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9023.727mil|Location2.X=9034.465mil|Location1.Y=7571.704mil|Location2.Y=7578.364mil|Absolute=True">Silk To Silk Clearance Constraint: (0.069mm &lt; 0.102mm) Between Text "C29" (74.663mm,53.183mm) on Top Overlay And Track (75.132mm,54.074mm)(75.132mm,57.524mm) on Top Overlay Silk Text to Silk Clearance [0.069mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9043.753mil|Location2.X=9049.003mil|Location1.Y=7573.122mil|Location2.Y=7578.372mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9043.753mil|Location2.X=9049.003mil|Location1.Y=7573.122mil|Location2.Y=7578.372mil|Absolute=True">Silk To Silk Clearance Constraint: (0.058mm &lt; 0.102mm) Between Text "C29" (74.663mm,53.183mm) on Top Overlay And Track (75.132mm,54.074mm)(76.182mm,54.074mm) on Top Overlay Silk Text to Silk Clearance [0.058mm]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9065.796mil|Location2.X=9071.046mil|Location1.Y=7573.102mil|Location2.Y=7578.352mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9065.796mil|Location2.X=9071.046mil|Location1.Y=7573.102mil|Location2.Y=7578.352mil|Absolute=True">Silk To Silk Clearance Constraint: (0.062mm &lt; 0.102mm) Between Text "C29" (74.663mm,53.183mm) on Top Overlay And Track (76.182mm,54.074mm)(76.182mm,57.494mm) on Top Overlay Silk Text to Silk Clearance [0.062mm]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDIDZENZL2EYRGMDGXW4ATAUMUMDGJQXQPUCQEC3FR1A4IP43HCB2G"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Board Clearance Constraint (Gap=0mm) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7222.167mil|Location2.X=7229.833mil|Location1.Y=5444.834mil|Location2.Y=5452.501mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7222.167mil|Location2.X=7229.833mil|Location1.Y=5444.834mil|Location2.Y=5452.501mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.254mm) Between Board Edge And Track (29.362mm,-0.102mm)(29.362mm,1.4mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7392.167mil|Location2.X=7399.833mil|Location1.Y=5444.851mil|Location2.Y=5452.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7392.167mil|Location2.X=7399.833mil|Location1.Y=5444.851mil|Location2.Y=5452.518mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.254mm) Between Board Edge And Track (29.362mm,-0.102mm)(37.998mm,-0.102mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7562.167mil|Location2.X=7569.833mil|Location1.Y=5444.851mil|Location2.Y=5452.518mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=7562.167mil|Location2.X=7569.833mil|Location1.Y=5444.851mil|Location2.Y=5452.518mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.254mm) Between Board Edge And Track (37.998mm,-0.102mm)(37.998mm,1.4mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9749.873mil|Location2.X=9757.54mil|Location1.Y=6106.167mil|Location2.Y=6113.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9749.873mil|Location2.X=9757.54mil|Location1.Y=6106.167mil|Location2.Y=6113.833mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.254mm) Between Board Edge And Track (92.479mm,16.688mm)(93.98mm,16.688mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9749.873mil|Location2.X=9757.54mil|Location1.Y=6446.167mil|Location2.Y=6453.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9749.873mil|Location2.X=9757.54mil|Location1.Y=6446.167mil|Location2.Y=6453.833mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.254mm) Between Board Edge And Track (92.479mm,25.324mm)(93.98mm,25.324mm) on Top Overlay </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9766.167mil|Location2.X=9773.833mil|Location1.Y=6276.167mil|Location2.Y=6283.833mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=E:\work\project\PCB\AD\ADS1299\ADS1299-ESP32-V3\ADS1299-V3.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9766.167mil|Location2.X=9773.833mil|Location1.Y=6276.167mil|Location2.Y=6283.833mil|Absolute=True">Board Outline Clearance(Outline Edge): (Collision &lt; 0.254mm) Between Board Edge And Track (93.98mm,16.688mm)(93.98mm,25.324mm) on Top Overlay </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>

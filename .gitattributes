@@ -1,0 +1,8 @@
+# Preserve CAD sources and generated fabrication files byte for byte.
+ADS1299-ESP32-V3/** -text
+*.PrjPcb -text
+*.OutJob -text
+*.SchDoc binary
+*.PcbDoc binary
+*.pdf binary
+*.zip binary

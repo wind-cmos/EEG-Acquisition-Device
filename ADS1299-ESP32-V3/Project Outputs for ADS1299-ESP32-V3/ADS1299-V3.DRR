@@ -1,0 +1,22 @@
+----------------------------------------------------------------------------------------------------------------------------------
+NCDrill File Report For: ADS1299-V3.PcbDoc   2025/8/21  22:47:37
+----------------------------------------------------------------------------------------------------------------------------------
+
+Layer Pair : Top to Bottom
+ASCII RoundHoles File : ADS1299-V3-RoundHoles.TXT
+ASCII SlotHoles File : ADS1299-V3-SlotHoles.TXT
+EIA File   : ADS1299-V3.DRL
+
+Tool       Hole Size               Hole Tolerance               Hole Type       Hole Count   Plated         Tool Travel
+----------------------------------------------------------------------------------------------------------------------------------
+T1      12mil (0.305mm)                                           Round             3         PTH        2.46inch (62.61mm)
+T2      14mil (0.356mm)                                           Round             379       PTH        59.66inch (1515.43mm)
+T3      20mil (0.508mm)                                           Round             1         PTH        0.00inch (0.00mm)
+T4      24mil (0.6mm)                                             Slot              8         PTH        11.44inch (290.48mm)
+T5      43mil (1.1mm)                                             Round             34        PTH        9.36inch (237.81mm)
+T6      47mil (1.2mm)                                             Round             4         PTH        11.49inch (291.90mm)
+T7      51mil (1.3mm)                                             Slot              6         PTH        2.91inch (73.94mm)
+----------------------------------------------------------------------------------------------------------------------------------
+Totals                                                                              435
+
+Total Processing Time (hh:mm:ss) : 00:00:00

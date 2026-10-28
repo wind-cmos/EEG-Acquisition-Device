@@ -1,0 +1,27 @@
+# Altium component, footprint, integrated and database libraries
+*.[Ss][Cc][Hh][Ll][Ii][Bb]
+*.[Pp][Cc][Bb][Ll][Ii][Bb]
+*.[Ii][Nn][Tt][Ll][Ii][Bb]
+*.[Dd][Bb][Ll][Ii][Bb]
+*.[Ss][Vv][Nn][Dd][Bb][Ll][Ii][Bb]
+*.[Ll][Ii][Bb][Pp][Kk][Gg]
+*.[Ss][Cc][Hh][Ll][Ii][Bb].*
+*.[Pp][Cc][Bb][Ll][Ii][Bb].*
+
+# Altium history, caches and local project state
+History/
+__Previews/
+Project Logs*/
+*.PrjPcbStructure
+*.PrjPcbVariants
+*.PrjPcb~
+*.SchDoc~
+*.PcbDoc~
+*.bak
+*.tmp
+*.Lck
+
+# OS metadata
+Thumbs.db
+Desktop.ini
+.DS_Store
