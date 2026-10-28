@@ -23,9 +23,3 @@
 | [ADS1299-ESP32-V3.pdf](ADS1299-ESP32-V3/ADS1299-ESP32-V3.pdf) | 原理图及 PCB 的 PDF 导出，可直接查看 |
 | `ADS1299-ESP32-V3.OutJob` | 输出任务配置 |
 | `Project Outputs for ADS1299-ESP32-V3/` 及同名 ZIP | 原工程现有的 Gerber、钻孔、贴片坐标及报告文件 |
-
-## 使用说明
-
-使用 Altium Designer 打开工程入口文件即可浏览原理图与 PCB。仓库不包含器件符号库、PCB 封装库和集成库；如需从库更新或新增器件，请自行配置对应库文件。上传副本已移除工程中的 `.SchLib` / `.PcbLib` 文档引用。
-
-制板输出为原目录已有文件，本次未重新执行原理图与 PCB 同步、ERC / DRC 或生成制板文件；修改设计后请重新检查并导出。
