@@ -1,4 +1,4 @@
-# EEG-Acquisition-Device（V1）
+# EEG-Acquisition-Device（V1-样机）
 
 基于 **ADS1299 + ESP32-S3** 的 16 通道脑电（EEG）采集硬件工程，使用 Altium Designer 设计。本仓库当前收录 `ADS1299-ESP32-V3` 版本。
 
